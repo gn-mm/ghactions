@@ -32,14 +32,13 @@ jobs:
       issues: write # This is required to create comments
     steps:
       - name: Authenticate GitHub CLI
-        run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+        run: gh auth login --with-token <<< "${GITHUB_TOKEN}"
       - name: Create comment with API
         run: |
           gh api -X POST \
-            https://api.github.com/repos/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
-            -f body='Comment but from the API call not action'
+            "${REPOSITORY}/issues/${ISSUE_NUMBER}/comments" \
+            -f body='Comment from API call'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ORGANIZATION: ${{ github.event.organization.login }}
-          REPOSITORY: ${{ github.event.repository.name }}
+          REPOSITORY: ${{ github.event.repository_url }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
