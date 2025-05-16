@@ -32,7 +32,7 @@ jobs:
       issues: write # This is required to create comments
     steps:
       - name: Authenticate GitHub CLI
-        run: gh auth login --with-token <<< "${GITHUB_TOKEN}"
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
       - name: Create comment with API
         run: |
           gh api -X POST \
