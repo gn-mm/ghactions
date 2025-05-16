@@ -40,5 +40,5 @@ jobs:
             -f body='Comment from API call'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPOSITORY: ${{ github.event.repository_url }}
+          REPOSITORY: repos/${{ github.repository }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
