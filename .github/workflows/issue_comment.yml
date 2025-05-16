@@ -28,13 +28,15 @@ jobs:
 
   comment-with-api:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write # This is required to create comments
     steps:
       - name: Authenticate GitHub CLI
         run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
       - name: Create comment with API
         run: |
           gh api -X POST \
-            https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
+            https://api.github.com/repos/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
             -f body='Comment but from the API call not action'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
