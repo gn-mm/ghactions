@@ -1,0 +1,28 @@
+name: Hello world workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      # not reinveing the wheel, use a community action to configure it automatically
+      # @v2 is a reference to a specific tag, branch or commit
+      - uses: actions/checkout@v2   # https://github.com/actions/checkout
+      - name: hello world
+        run: echo "Hello world"
+        shell: bash
+
+    goodbye:
+      runs-on: ubuntu-latest
+      steps:
+        - name: goodbye world
+          run: echo "Goodbye world"
+          shell: bash
